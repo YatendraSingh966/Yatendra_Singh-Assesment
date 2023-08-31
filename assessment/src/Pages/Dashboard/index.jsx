@@ -6,10 +6,28 @@ import {
   ShoppingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { getOrders } from "../../API";
+import { getInventory, getOrders, getUser } from "../../API";
 import VerticalBarChart from "../../Charts/VerticalBarChart";
 
 export default function Dashboard() {
+  const [orders, setOrders] = useState(0);
+  const [inventory, setInventory] = useState(0);
+  const [customers, SetCustomers] = useState(0);
+  const [revenue, setRevenue] = useState(0);
+
+  useEffect(() => {
+    getOrders().then((res) => {
+      setOrders(res.total);
+      setRevenue(res.discountedTotal);
+    });
+    getInventory().then((res) => {
+      setInventory(res.total);
+    });
+    getUser().then((res) => {
+      SetCustomers(res.total);
+    });
+  }, []);
+
   return (
     <div>
       <Space size={12} direction="vertical">
@@ -28,7 +46,7 @@ export default function Dashboard() {
               />
             }
             title={"Orders"}
-            value={12345}
+            value={orders}
           />
           <DashboardCard
             icon={
@@ -43,7 +61,7 @@ export default function Dashboard() {
               />
             }
             title={"Inventory"}
-            value={12345}
+            value={inventory}
           />
           <DashboardCard
             icon={
@@ -58,7 +76,7 @@ export default function Dashboard() {
               />
             }
             title={"Customers"}
-            value={12345}
+            value={customers}
           />
           <DashboardCard
             icon={
@@ -73,7 +91,7 @@ export default function Dashboard() {
               />
             }
             title={"Revenue"}
-            value={12345}
+            value={revenue}
           />
         </Space>
         <Space>
