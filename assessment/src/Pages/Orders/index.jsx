@@ -41,10 +41,6 @@ export default function Orders() {
             title: "Total",
             dataIndex: "total",
           },
-          {
-            title: "Category",
-            dataIndex: "category",
-          },
         ]}
         dataSource={dataSource}
         pagination={{
