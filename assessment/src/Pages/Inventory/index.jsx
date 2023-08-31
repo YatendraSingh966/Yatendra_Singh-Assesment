@@ -9,12 +9,14 @@ export default function Inventory() {
     setLoading(true);
     getInventory().then((res) => {
       setDataSource(res.products);
+      setLoading(false);
     });
   }, []);
   return (
     <Space size={20} direction="vertical">
       <Typography.Title level={4}>Inventory</Typography.Title>
       <Table
+        loading={loading}
         columns={[
           {
             title: "Thumbnail",
@@ -54,7 +56,7 @@ export default function Inventory() {
         ]}
         dataSource={dataSource}
         pagination={{
-          pageSize: 10,
+          pageSize: 5,
         }}
       ></Table>
     </Space>
